@@ -14,6 +14,12 @@ func hello(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello, ECS!")
 }
 
+func helloTo(w http.ResponseWriter, r *http.Request) {
+	name := pat.Param(r, "name")
+	logger.WithField("handler", "hello").Infof("helloTo handler called with name %", name)
+	fmt.Fprintf(w, "Hello, %s!", name)
+}
+
 func health(w http.ResponseWriter, r *http.Request) {
 	logger.WithField("handler", "health").Info("health handler called")
 	fmt.Fprint(w, "healthy")
@@ -23,6 +29,7 @@ func main() {
 	logger.WithField("action", "setup").Info("Setting up ecs app")
 	mux := goji.NewMux()
 	mux.HandleFunc(pat.Get("/"), hello)
+	mux.HandleFunc(pat.Get("/hello/:name"), helloTo)
 	mux.HandleFunc(pat.Get("/health"), health)
 
 	logger.WithField("action", "startup").Infof("Listening on port: %s", "8000")
