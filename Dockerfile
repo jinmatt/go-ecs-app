@@ -1,4 +1,6 @@
-FROM golang:1.11.3-stretch
+FROM golang:1.11.3-alpine3.8
+
+RUN apk add --no-cache git
 
 WORKDIR /go/src/app
 COPY . .
