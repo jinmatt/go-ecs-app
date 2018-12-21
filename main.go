@@ -11,7 +11,7 @@ import (
 
 func hello(w http.ResponseWriter, r *http.Request) {
 	logger.WithField("handler", "hello").Info("hello handler called")
-	fmt.Fprint(w, "Hello, ECS!")
+	fmt.Fprint(w, "Hello, ECS from wip!")
 }
 
 func helloTo(w http.ResponseWriter, r *http.Request) {
