@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	logger "github.com/sirupsen/logrus"
 	goji "goji.io"
@@ -11,7 +12,7 @@ import (
 
 func hello(w http.ResponseWriter, r *http.Request) {
 	logger.WithField("handler", "hello").Info("hello handler called")
-	fmt.Fprint(w, "Hello, ECS from master with wip!")
+	fmt.Fprintf(w, "Hello, ECS from env %s!", os.Getenv("GO_ECS_ENV"))
 }
 
 func helloTo(w http.ResponseWriter, r *http.Request) {
